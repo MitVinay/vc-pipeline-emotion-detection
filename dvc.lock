@@ -48,20 +48,20 @@ stages:
       size: 1370
     params:
       params.yaml:
-        feature_engineering.max_features: 20
+        feature_engineering.max_features: 50
     outs:
     - path: data/processed
       hash: md5
-      md5: 04d4d12854343d7ee75c6644b4951e7a.dir
-      size: 485472
+      md5: bc7748b72bfab385c49ade10ca77c454.dir
+      size: 1108092
       nfiles: 2
   model_building:
     cmd: python vc-pipeline-emotion-detection/model/model_building.py
     deps:
     - path: data/processed
       hash: md5
-      md5: 04d4d12854343d7ee75c6644b4951e7a.dir
-      size: 485472
+      md5: bc7748b72bfab385c49ade10ca77c454.dir
+      size: 1108092
       nfiles: 2
     - path: vc-pipeline-emotion-detection/model/model_building.py
       hash: md5
@@ -69,21 +69,21 @@ stages:
       size: 750
     params:
       params.yaml:
-        model_building.learning_rate: 0.01
+        model_building.learning_rate: 0.1
         model_building.n_estimators: 100
     outs:
     - path: models
       hash: md5
-      md5: 99923ad97ad8ef224c4802f696c0b34c.dir
-      size: 136475
+      md5: c5172d9b4105385a4a9b6364a188fe85.dir
+      size: 135179
       nfiles: 1
   model_evaluation:
     cmd: python vc-pipeline-emotion-detection/model/model_evaluation.py
     deps:
     - path: models
       hash: md5
-      md5: 99923ad97ad8ef224c4802f696c0b34c.dir
-      size: 136475
+      md5: c5172d9b4105385a4a9b6364a188fe85.dir
+      size: 135179
       nfiles: 1
     - path: vc-pipeline-emotion-detection/model/model_evaluation.py
       hash: md5
@@ -92,5 +92,5 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: e299a034cefe0bfcde787bc0d0835226
+      md5: afd453d1408db7a1f83caa0412a64172
       size: 140
