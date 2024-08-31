@@ -1,42 +1,42 @@
 stages:
   data_ingestion:
-    cmd: python vc-pipeline-emotion_detection/data/data_ingestion.py
+    cmd: python vc-pipeline-emotion-detection/data/data_ingestion.py
     deps:
-    - vc-pipeline-emotion_detection/data/data_ingestion.py
+    - vc-pipeline-emotion-detection/data/data_ingestion.py
     params:
     - data_ingestion.test_size
     outs:
     - data/raw
   data_preprocessing:
-    cmd: python vc-pipeline-emotion_detection/data/data_preprocessing.py
+    cmd: python vc-pipeline-emotion-detection/data/data_preprocessing.py
     deps:
     - data/raw
-    - vc-pipeline-emotion_detection/data/data_preprocessing.py
+    - vc-pipeline-emotion-detection/data/data_preprocessing.py
     outs:
     - data/interim
   feature_engineering:
-    cmd: python vc-pipeline-emotion_detection/features/feature_engineering.py
+    cmd: python vc-pipeline-emotion-detection/features/feature_engineering.py
     deps:
     - data/interim
-    - vc-pipeline-emotion_detection/features/feature_engineering.py
+    - vc-pipeline-emotion-detection/features/feature_engineering.py
     params:
     - feature_engineering.max_features
     outs:
     - data/processed
   model_building:
-    cmd: python vc-pipeline-emotion_detection/model/model_building.py
+    cmd: python vc-pipeline-emotion-detection/model/model_building.py
     deps:
     - data/processed
-    - vc-pipeline-emotion_detection/model/model_building.py
+    - vc-pipeline-emotion-detection/model/model_building.py
     params:
     - model_building.n_estimators
     - model_building.learning_rate
     outs:
     - models
   model_evaluation:
-    cmd: python vc-pipeline-emotion_detection/model/model_evaluation.py
+    cmd: python vc-pipeline-emotion-detection/model/model_evaluation.py
     deps:
-    - vc-pipeline-emotion_detection/model/model_evaluation.py
+    - vc-pipeline-emotion-detection/model/model_evaluation.py
     - models
     metrics:
     - metrics.json
